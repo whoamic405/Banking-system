@@ -22,6 +22,11 @@ public class FachadaClientePessoaJuridica implements IFachadaClientePessoaJuridi
     public void atualizar(ClientePessoaJuridica clientePessoaJuridica) throws Exception{
         controleClientePessoaJuridica.atualizar(clientePessoaJuridica);
     }
+    // Remover Cliente Pessoa Juridica
+    @Override
+    public void remover(ClientePessoaJuridica clientePessoaJuridica){
+        this.controleClientePessoaJuridica.remover(clientePessoaJuridica);
+    }
     // Método para listar todos
     @Override
     public List<ClientePessoaJuridica> listaTodosPessoaJuridica(){

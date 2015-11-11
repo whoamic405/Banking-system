@@ -14,6 +14,11 @@ public class FachadaCliente implements IFachadaCliente{
         this.controleCliente = new ControleCliente(null);
     }
     
+    // Remover Cliente
+    @Override
+    public void removerCliente(Cliente cliente){
+        this.controleCliente.removerCliente(cliente);
+    }
     
     // Método para listar todos
     @Override

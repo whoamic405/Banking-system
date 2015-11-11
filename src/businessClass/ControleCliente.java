@@ -13,6 +13,11 @@ public class ControleCliente {
         this.dao = DAOFactory.getDAOCliente();
     }
     
+    // Remover Cliente
+    public void removerCliente(Cliente cliente){
+        this.dao.remover(cliente);
+    }
+    
     // Método para listar todos
     public List<Cliente> listaTodosClientes(){
         return dao.listarTodos();

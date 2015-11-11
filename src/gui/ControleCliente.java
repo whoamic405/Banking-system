@@ -1,15 +1,20 @@
 package gui;
 
+import basicClasses.Cliente;
 import basicClasses.ClientePessoaFisica;
 import basicClasses.ClientePessoaJuridica;
 import basicClasses.Endereco;
 
+import classesFacade.FachadaCliente;
 import classesFacade.FachadaClientePessoaFisica;
 import classesFacade.FachadaClientePessoaJuridica;
 import classesFacade.FachadaEndereco;
+
+import interfaceClasses.IFachadaCliente;
 import interfaceClasses.IFachadaClientePessoaFisica;
 import interfaceClasses.IFachadaClientePessoaJuridica;
 import interfaceClasses.IFachadaEndereco;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +33,7 @@ public final class ControleCliente extends javax.swing.JFrame {
     }
 
     // Instanciando as Fachadas
+    private final IFachadaCliente fachadaCliente = new FachadaCliente();
     private final IFachadaClientePessoaFisica fachadaClientePessoaFisica = new FachadaClientePessoaFisica();
     private final IFachadaClientePessoaJuridica fachadaClientePessoaJuridica = new FachadaClientePessoaJuridica();
     private final IFachadaEndereco fachadaEndereco = new FachadaEndereco();
@@ -35,10 +41,12 @@ public final class ControleCliente extends javax.swing.JFrame {
     private List<ClientePessoaJuridica> listaClienteJuridico;
     private List<Endereco> listaEndereco;
     // Instanciando os objetos
+    private final Cliente cliente = new Cliente();
     private final ClientePessoaFisica clientePessoaFisica = new ClientePessoaFisica();
     private final ClientePessoaJuridica clientePessoaJuridica = new ClientePessoaJuridica();
     private final Endereco endereco = new Endereco();
     private int idEnd = 0;
+    private int idcli = 0;
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -391,6 +399,11 @@ public final class ControleCliente extends javax.swing.JFrame {
         jLabelNomeCli.setText("jLabel9");
 
         jButtonRemoverCli.setText("Remover");
+        jButtonRemoverCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoverCliActionPerformed(evt);
+            }
+        });
 
         jButtonAtualizarCli.setText("Editar Dados do Cliente");
         jButtonAtualizarCli.addActionListener(new java.awt.event.ActionListener() {
@@ -1185,6 +1198,8 @@ public final class ControleCliente extends javax.swing.JFrame {
                 String valor = o.toString();
 
                 int id = Integer.parseInt(valor);
+                
+                idcli = id;
 
                 idEnd = Integer.parseInt(jTableClientes.getValueAt(valuer, 8).toString());
 
@@ -1338,6 +1353,79 @@ public final class ControleCliente extends javax.swing.JFrame {
         ControleConta conta = new ControleConta();
         conta.setVisible(true);
     }//GEN-LAST:event_jButtonCadastrarContaActionPerformed
+
+    private void jButtonRemoverCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverCliActionPerformed
+
+        try {
+
+            if (validarRadio() == false) {
+
+                JOptionPane.showMessageDialog(rootPane, "Nenhum tipo de cliente foi selecionado!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                jLabel1tTipoPessoa.requestFocus();
+                
+            } else if (jRadioButtonFisica.isSelected()) {
+
+                clientePessoaFisica.setId(idcli);
+                fachadaClientePessoaFisica.remover(clientePessoaFisica);
+
+                cliente.setId(idcli);
+                fachadaCliente.removerCliente(cliente);
+
+                endereco.setId(idEnd);
+                fachadaEndereco.remover(endereco);
+
+                ControleCliente.this.dispose();
+
+                int result = JOptionPane.showConfirmDialog(rootPane, "Cliente removido com sucesso!\nDeseja realizar mais alguma operaçao?", "Mensagem de confirmação", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                if (result == JOptionPane.YES_OPTION) {
+
+                    ControleCliente cadastrarCliente = new ControleCliente();
+                    cadastrarCliente.setVisible(true);
+
+                } else {
+
+                    Principal principal = new Principal();
+                    principal.setVisible(true);
+
+                }
+
+            } else if (jRadioButtonJuridica.isSelected()) {
+                
+                clientePessoaJuridica.setId(idcli);
+                fachadaClientePessoaJuridica.remover(clientePessoaJuridica);
+
+                cliente.setId(idcli);
+                fachadaCliente.removerCliente(cliente);
+
+                endereco.setId(idEnd);
+                fachadaEndereco.remover(endereco);
+
+                ControleCliente.this.dispose();
+
+                int result = JOptionPane.showConfirmDialog(rootPane, "Cliente removido com sucesso!\nDeseja realizar mais alguma operaçao?", "Mensagem de confirmação", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                if (result == JOptionPane.YES_OPTION) {
+
+                    ControleCliente cadastrarCliente = new ControleCliente();
+                    cadastrarCliente.setVisible(true);
+
+                } else {
+
+                    Principal principal = new Principal();
+                    principal.setVisible(true);
+
+                }
+                
+            }
+
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+
+    }//GEN-LAST:event_jButtonRemoverCliActionPerformed
 
     // Metodo para limpar Tabela Endereço
     public void limparTabelas() {

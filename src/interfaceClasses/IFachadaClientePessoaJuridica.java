@@ -14,6 +14,9 @@ public interface IFachadaClientePessoaJuridica {
     // Método para listar todos
     public List<ClientePessoaJuridica> listaTodosPessoaJuridica();
     
+    // Remover Cliente Pessoa Juridica
+    public void remover(ClientePessoaJuridica clientePessoaJuridica);
+    
     // Método para listar todos por nome
     public List<ClientePessoaJuridica> listaTodosPessoaJuridicaPorNome(String nome);
     

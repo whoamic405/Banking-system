@@ -65,7 +65,7 @@ public class ControleClientePessoaJuridica {
 
             for (int i = 0; i < lista.size(); i++) {
 
-                if (clientePessoaJuridica.getCnpj() == lista.get(i).getCnpj()) {
+                if (clientePessoaJuridica.getCnpj().equals(lista.get(i).getCnpj())) {
                     verificarCnpj = true;
                     break;
                 }
@@ -96,6 +96,12 @@ public class ControleClientePessoaJuridica {
         dao.alterar(clientePessoaJuridica);
         
     }
+    
+    // Remover Cliente Pessoa Juridica
+    public void remover(ClientePessoaJuridica clientePessoaJuridica){
+        this.dao.remover(clientePessoaJuridica);
+    }
+    
     // Método para listar todos
     public List<ClientePessoaJuridica> listaTodosPessoaJuridica(){
         return dao.listarTodos();
